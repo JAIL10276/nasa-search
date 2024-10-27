@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
 import "./nasa-image.js";
 export class NasaSearch extends LitElement {
   static get properties() {
@@ -14,31 +15,40 @@ export class NasaSearch extends LitElement {
     return css`
       :host {
         display: block;
+        padding: 20px;
       }
+
       :host([loading]) .results {
         opacity: 0.1;
         visibility: hidden;
         height: 1px;
       }
+
       .results {
         visibility: visible;
         height: 100%;
         opacity: 1;
         transition-delay: .5s;
         transition: .5s all ease-in-out;
+        padding: 0;
+        display: flex;
       }
+
 
       details {
         margin: 16px;
         padding: 16px;
-        background-color: blue;
+        background-color: #0b3d90;
+        border-radius: 5px;
       }
+
       summary {
         font-size: 24px;
         padding: 8px;
         color: white;
         font-size: 42px;
       }
+
       input {
         font-size: 20px;
         line-height: 40px;
@@ -46,7 +56,6 @@ export class NasaSearch extends LitElement {
       }
     `;
   }
-
   constructor() {
     super();
     this.value = null;
@@ -64,13 +73,16 @@ export class NasaSearch extends LitElement {
         <input id="input" placeholder="Search NASA images" @input="${this.inputChanged}" />
       </div>
     </details>
+
     <div class="results">
-      ${this.items.map((item, index) => html`
+      <div class="items">
+        ${this.items.map((item, index) => html`
       <nasa-image
         source="${item.links[0].href}"
         title="${item.data[0].title}"
       ></nasa-image>
       `)}
+      </div>
     </div>
     `;
   }
@@ -92,7 +104,6 @@ export class NasaSearch extends LitElement {
       console.log(this.items);
     }
   }
-
   updateResults(value) {
     this.loading = true;
     fetch(`https://images-api.nasa.gov/search?media_type=image&q=${value}`).then(d => d.ok ? d.json(): {}).then(data => {
@@ -100,7 +111,7 @@ export class NasaSearch extends LitElement {
         this.items = [];
         this.items = data.collection.items;
         this.loading = false;
-      }  
+      }
     });
   }
 

@@ -9,9 +9,18 @@
 
   <style>
     :root, html, body {
-      margin: 0;
-      padding: 0;
       background-color: var(--navbar-background-color);
+      font-family: Arial, sans-serif;
+      background: radial-gradient(
+        circle,
+        rgba(20, 20, 20, 1) 0%,   /* Darkest center */
+        rgba(30, 30, 30, 1) 60%,  /* Slightly lighter around the center */
+        rgba(10, 10, 10, 1) 100%  /* Dark edges */
+      );
+      background-attachment: fixed; /* Keep the gradient fixed during scrolling */
+      justify-content: center;
+      display:inline-flex;
+
     }
     #demo {
       margin: var(--ddd-spacing-2);
@@ -23,6 +32,7 @@
       border-radius: var(--ddd-radius-lg);
     }
     nasa-search:hover {
+      transition: ease-in-out 0.3s;
       box-shadow: var(--ddd-boxShadow-sm);
     }
     #example {
@@ -30,17 +40,37 @@
       background-color: var(--ddd-accent-2);
       color: var(--ddd-primary-17);
     }
+
+    #logo{
+      width: 445px;
+      height: 445px;
+    }
+    #image&Title{
+      display: inline;
+      justify-content: center;
+      align-content: center;
+    }
+    #logodiv{
+
+    }
+
   </style>
   <title>nasa-search</title>
 </head>
 
 <body>
   <div id="demo">
-    <h1>nasa-search</h1>
+    <div id="image">
+      <div id="logodiv">
+      <img id="logo" src="./lib/NASA_logo.svg" alt="Nasa Logo">
+      </div>
+
+    </div>
     <!-- this is going to do whatever the tag's defaults are -->
-    <h2>Default</h2>
     <nasa-search></nasa-search>
   </div>
   <script type="module" src="./nasa-search.js"></script>
+  <script type="module" src="./nasa-image.js"></script>
+
 </body>
 </html>
